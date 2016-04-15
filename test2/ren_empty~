@@ -1,0 +1,9 @@
+#!/bin/bash
+files=`ls empty`
+count=547;
+for i in $files
+do
+	num=`echo $count | awk '{print sprintf("%04d", $0);}'`
+	mv empty/$i empty/${num}.jpg
+	count=`expr $count + 1`
+done
