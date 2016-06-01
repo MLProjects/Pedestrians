@@ -5,7 +5,7 @@ B = imread(strcat('../DaimlerBenchmark/Data/TestData/00m_25s_704914u.pgm'));
 A = B;
 C = B;
 %% Load NN
-load('train.mat');
+load('nnetwork.mat');
 
 %% Loops
 jump = 4;
@@ -32,13 +32,13 @@ for l = 17:length(scales)
     bound = [size(A,2) - scale_X(1,l) + 1, size(A,1) - scale_Y(1,l) + 1];
     x_coor = 1:s_jump:floor(bound(1,1)/s_jump)*s_jump;
     y_coor = 1:s_jump:floor(bound(1,2)/s_jump)*s_jump;
-    
     for i = 1:length(x_coor)
         for j = 1:length(y_coor)
             bug_count = bug_count + 1;
             J = imresize(A(y_coor(1,j):(y_coor(1,j)+scale_Y(1,l)-1),x_coor(1,i):(x_coor(1,i)+scale_X(1,l)-1)), scales(l), 'nearest');
-            [Gmag,Gdir] = imgradient(J);
-            Gmag = uint8((Gmag - min(min(Gmag))*ones(size(Gmag)))*(255/(max(max(Gmag)) - min(min(Gmag)))));
+            %[Gmag,Gdir] = imgradient(J);
+            Gmag = J;
+            Gmag = normal(Gmag);
             %imshow(Gmag);
             %pause();
             Image = reshape(Gmag,[1,size(Gmag,1)*size(Gmag,2)]);
@@ -54,9 +54,7 @@ for l = 17:length(scales)
             else
                 C = insertRectangle(B,[x_coor(1,i),y_coor(1,j),scale_X(1,l),scale_Y(1,l)],[255,255,10],0.9,3,false);
                 %C = insertShape(B, 'Rectangle', [x_coor(1,i) y_coor(1,j) scale_X(1,l) scale_Y(1,l)], 'LineWidth', 2);
-            end
-
-            
+            end   
             C = B;
         end
     end

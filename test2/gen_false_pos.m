@@ -3,8 +3,7 @@ count = 1;
 tot_count = inp;
 enough = false;
 while( (count < 600) && not(enough) )
-    %% Read image
-    
+    %% Load image
     B = imread(strcat('../DaimlerBenchmark/Data/TrainingData/NonPedestrians/neg',num2str(count-1,'%05.5i'),'.pgm'));
     fprintf('\nScanning image: %f\n', count - 1);
     %A = rgb2gray(B);

@@ -30,7 +30,7 @@ num_labels = 1;          % 2 labels, from 1 to 2
 %
 
 % Load Training Data
-fprintf('Loading and Visualizing Data ...\n')
+%fprintf('Loading and Visualizing Data ...\n')
 
 load('images.mat');
 %m = size(X, 1);
@@ -42,7 +42,7 @@ load('images.mat');
 displayData(X_tr(1:200, :),18);
 
 
-fprintf('Program paused. Press enter to continue.\n');
+%fprintf('Program paused. Press enter to continue.\n');
 %pause;
 
 % 
@@ -129,8 +129,8 @@ fprintf('Program paused. Press enter to continue.\n');
 
 fprintf('\nInitializing Neural Network Parameters ...\n')
 
-if( exist('train.mat', 'file') == 2 )
-    load train.mat;
+if( exist('nnetwork.mat', 'file') == 2 )
+    load nnetwork.mat;
     initial_Theta1 = Theta1;
     initial_Theta2 = Theta2;
 else
@@ -148,12 +148,12 @@ initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:)];
 %  code you've written in nnCostFunction.m to return the partial
 %  derivatives of the parameters.
 %
-fprintf('\nChecking Backpropagation... \n');
+%fprintf('\nChecking Backpropagation... \n');
 
 %  Check gradients by running checkNNGradients
-checkNNGradients;
+%checkNNGradients;
 
-fprintf('\nProgram paused. Press enter to continue.\n');
+%fprintf('\nProgram paused. Press enter to continue.\n');
 %pause;
 
 
@@ -235,7 +235,7 @@ fprintf('\nProgram paused. Press enter to continue.\n');
 %  you compute the training set accuracy.
 %% 
 
-save('train.mat', 'Theta1', 'Theta2');
+save('nnetwork.mat', 'Theta1', 'Theta2');
 Threshold = 0.1:0.1:1;
 Accuracy = zeros(1,10);
 for i = 1:10
